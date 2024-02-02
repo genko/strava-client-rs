@@ -1,4 +1,5 @@
-use crate::redirect::server;
+use crate::util::auth_config;
+use crate::util::redirect;
 use oauth2::basic::BasicClient;
 use oauth2::reqwest::http_client;
 use oauth2::{
@@ -7,6 +8,8 @@ use oauth2::{
 };
 
 pub mod auth {
+
+    use oauth2::TokenResponse;
 
     use super::*;
 
@@ -31,7 +34,7 @@ pub mod auth {
         }
     }
 
-    pub fn get_authorization(config: Config) -> Result<oauth2::StandardTokenResponse<oauth2::EmptyExtraTokenFields, oauth2::basic::BasicTokenType>, ()> {
+    pub fn get_authorization(config: Config) -> Result<String, String> {
         
         let token_config = config.clone(); // This is a temporary fix to get the client_id and client_secret into the token request
 
@@ -59,7 +62,7 @@ pub mod auth {
                 "Open this URL in your browser:\n{}\n",
                 authorize_url.to_string()
             );
-        let get_response_params = server::run();
+        let get_response_params = redirect::server::run();
         let code = AuthorizationCode::new(get_response_params.get("code").unwrap().to_string());
         let state = CsrfToken::new(get_response_params.get("state").unwrap().to_string());
 
@@ -92,11 +95,13 @@ pub mod auth {
                 },
             };
         });
-        token_res
-
+        let refresh_token = token_res.as_ref().unwrap().refresh_token().unwrap().secret().to_string();
+        let access_token = token_res.unwrap().access_token().secret().to_string();
+        auth_config::config_file::write_config(&access_token, &refresh_token);
+        Ok(access_token)
     }
 
-    pub fn get_refresh_token(config: Config) -> Result<oauth2::StandardTokenResponse<oauth2::EmptyExtraTokenFields, oauth2::basic::BasicTokenType> , ()>{
+    pub fn get_refresh_token(config: Config) -> Result<String, String> {
 
         let token_config = config.clone(); // This is a temporary fix to get the client_id and client_secret into the token request
 
@@ -114,13 +119,17 @@ pub mod auth {
             Some(token_url),
         );
 
-        let token_res = client.
+        let refresh_res = client.
         exchange_refresh_token(&refresh_token).
         add_extra_param("client_id", token_config.client_id).
         add_extra_param("client_secret", token_config.client_secret).
         request(http_client);
 
-        Ok(token_res.unwrap())
+        let refresh_token = refresh_res.as_ref().unwrap().refresh_token().unwrap().secret().to_string();
+        let access_token = refresh_res.as_ref().unwrap().access_token().secret().to_string();
+        auth_config::config_file::write_config(&access_token, &refresh_token);
+        Ok(access_token)
+
     }
 
 

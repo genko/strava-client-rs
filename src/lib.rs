@@ -1,3 +1,2 @@
-pub mod redirect;
-pub mod oauth;
-pub mod configfile;
+pub mod api;
+pub mod util;

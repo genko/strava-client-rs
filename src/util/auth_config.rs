@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::env;
 use std::fs::File;
 
-pub mod configfile {
+pub mod config_file {
 
     use super::*;
     #[derive(Debug, Serialize, Deserialize)]
