@@ -35,4 +35,19 @@ pub mod configfile {
             panic!("Couldn't write to file: {}", e);
         });
     }
+    // Load the config file from JSON and return a Config struct
+    pub fn load_config() -> ConfigFile {
+        let get_file = get_config_file();
+
+        let config_file = std::fs::File::open(get_file).unwrap_or_else(|e| {
+              panic!("Couldn't open file: {}", e);
+        });
+
+        let config = serde_json::from_reader(config_file).unwrap_or_else(|e| {
+                panic!("Couldn't read file: {}", e);
+        });
+       
+        config
+    }
+
 }
