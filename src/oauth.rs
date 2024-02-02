@@ -3,35 +3,35 @@ use oauth2::basic::BasicClient;
 use oauth2::reqwest::http_client;
 use oauth2::{
     AuthUrl, AuthorizationCode, ClientId, ClientSecret, CsrfToken, RedirectUrl, Scope, RequestTokenError,
-    TokenUrl,
+    TokenUrl, RefreshToken
 };
 
 pub mod auth {
 
-    use oauth2::TokenResponse;
-
     use super::*;
 
-    #[derive(Clone)]
+    #[derive(Clone, Default, Debug, PartialEq)]
     pub struct Config {
         pub client_id: String,
         pub client_secret: String,
+        pub refresh_token: Option<String>,
         pub auth_url: String,
         pub token_url: String,
     }
 
     impl Config {
-        pub fn new(client_id: String, client_secret: String, auth_url: String, token_url: String) -> Config {
+        pub fn new(client_id: String, client_secret: String, refresh_token: String, auth_url: String, token_url: String) -> Config {
             Config {
                 client_id,
                 client_secret,
+                refresh_token: Some(refresh_token),
                 auth_url,
                 token_url,
             }
         }
     }
 
-    pub fn get_authorization(config: Config) -> String {
+    pub fn get_authorization(config: Config) -> Result<oauth2::StandardTokenResponse<oauth2::EmptyExtraTokenFields, oauth2::basic::BasicTokenType>, ()> {
         
         let token_config = config.clone(); // This is a temporary fix to get the client_id and client_secret into the token request
 
@@ -92,8 +92,35 @@ pub mod auth {
                 },
             };
         });
-        token_res.unwrap().access_token().secret().to_string()
+        token_res
 
+    }
+
+    pub fn get_refresh_token(config: Config) -> Result<oauth2::StandardTokenResponse<oauth2::EmptyExtraTokenFields, oauth2::basic::BasicTokenType> , ()>{
+
+        let token_config = config.clone(); // This is a temporary fix to get the client_id and client_secret into the token request
+
+        let strava_client_id = ClientId::new(config.client_id);
+        let strava_client_secret = ClientSecret::new(config.client_secret);
+        let auth_url = AuthUrl::new(config.auth_url).expect("Invalid authorization endpoint URL");
+        let token_url = TokenUrl::new(config.token_url).expect("Invalid token endpoint URL");
+        let refresh_token = RefreshToken::new(config.refresh_token.unwrap());
+
+
+        let client = BasicClient::new(
+            strava_client_id,
+            Some(strava_client_secret),
+            auth_url,
+            Some(token_url),
+        );
+
+        let token_res = client.
+        exchange_refresh_token(&refresh_token).
+        add_extra_param("client_id", token_config.client_id).
+        add_extra_param("client_secret", token_config.client_secret).
+        request(http_client);
+
+        Ok(token_res.unwrap())
     }
 
 
