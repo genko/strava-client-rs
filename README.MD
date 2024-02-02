@@ -6,9 +6,8 @@ This Rust lib will use the Stava API to both read and write against Strava
 
 ## Example
 ```rust
-use oauth2::TokenResponse;
-use strava_client_rs::oauth::auth;
-use strava_client_rs::configfile;
+use strava_client_rs::api::oauth::auth;
+use strava_client_rs::util::auth_config::config_file;
 use std::env;
 use std::path::Path;
 
@@ -19,7 +18,9 @@ fn main() {
     let access_token = get_access_token(config_file).unwrap();
 
     // Print the access token
-    println!("Access Token: {}", access_token);  
+    println!("Access Token: {}", access_token);
+
+  
 
 }
 
@@ -41,18 +42,12 @@ fn get_access_token(config_file: String) -> Result<String, String>{
 
     // Check if the config file exists and get the access token or get a new one
     if Path::new(&config_file).exists() {
-        config.refresh_token = Some(configfile::configfile::load_config().refresh_token);
-        let refresh_res = auth::get_refresh_token(config);
-        let access_token = refresh_res.as_ref().unwrap().access_token().secret().to_string();
-        let refresh_token = refresh_res.as_ref().unwrap().refresh_token().unwrap().secret().to_string();
-        configfile::configfile::write_config(&access_token, &refresh_token);        
-        Ok(access_token)
+        config.refresh_token = Some(config_file::load_config().refresh_token);
+        let refresh_access_token = auth::get_refresh_token(config);   
+        Ok(refresh_access_token.unwrap().to_string())
     } else {
-        let token_res = auth::get_authorization(config);
-        let access_token = token_res.as_ref().unwrap().access_token().secret().to_string();
-        let refresh_token = token_res.as_ref().unwrap().refresh_token().unwrap().secret().to_string();
-        configfile::configfile::write_config(&access_token, &refresh_token);        
-        Ok(access_token)
+        let access_token = auth::get_authorization(config);     
+        Ok(access_token.unwrap().to_string())
     }
 ```
 
