@@ -19,7 +19,10 @@ pub fn strava_test() {
     // Print the access token
     println!("Access Token: {}", access_token);
     let athlete = athlete::get_athlete(access_token.as_str());
-    println!("Athlete: {:?}", athlete.unwrap());
+    println!("Athlete: {:?}\n", athlete.as_ref().unwrap());
+    let athlete_id = athlete.unwrap().id.to_string();
+    let athlete_stats = athlete::get_athlete_stats(access_token.as_str(), athlete_id.as_str());
+    println!("Athlete Stats: {:?}\n", athlete_stats.unwrap());
 }
 
 // Get the access token from the config file or get a new one

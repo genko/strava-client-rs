@@ -31,3 +31,31 @@ pub fn get_athlete(access_token: &str) -> Result<models::athlete::AthleteCollect
     let athlete = response.json::<models::athlete::AthleteCollection>()?;
     Ok(athlete)
 }
+
+pub fn get_athlete_stats(access_token: &str, athlete_id: &str) -> Result<models::athlete::AthleteStats, Box<dyn std::error::Error>> {
+    
+    let client = reqwest::blocking::Client::new();
+    
+    // Get the URL for the API
+    let path = format!("athletes/{}/stats", athlete_id);
+    let url = api::strava_v3(path);
+   
+    // Call the API with the access token
+    let response = client.get(url)
+    .bearer_auth(access_token)
+    .send()?;
+
+    info!("Calling Athelete Stats API\n");
+    
+    // Check for errors from the API
+    if response.status().is_client_error() {
+        warn!("API response: {:?}", response);
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "API returned an error")));
+    }
+
+    trace!("Athlete Stats API response: {:?}\n", response);
+    
+    // Parse the JSON response
+    let athlete_stats = response.json::<models::athlete::AthleteStats>()?;
+    Ok(athlete_stats)
+}

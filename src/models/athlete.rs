@@ -40,3 +40,28 @@ pub struct Bike {
     pub resource_state: i64,
     pub distance: f64,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct AthleteStats {
+    pub biggest_ride_distance: f64,
+    pub biggest_climb_elevation_gain: Option<serde_json::Value>,
+    pub recent_ride_totals: Totals,
+    pub all_ride_totals: Totals,
+    pub recent_run_totals: Totals,
+    pub all_run_totals: Totals,
+    pub recent_swim_totals: Totals,
+    pub all_swim_totals: Totals,
+    pub ytd_ride_totals: Totals,
+    pub ytd_run_totals: Totals,
+    pub ytd_swim_totals: Totals,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Totals {
+    pub count: i64,
+    pub distance: f64,
+    pub moving_time: i64,
+    pub elapsed_time: i64,
+    pub elevation_gain: f64,
+    pub achievement_count: Option<i64>,
+}
