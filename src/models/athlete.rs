@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize)]
-pub struct AtheleteCollection {
+#[derive(Serialize, Deserialize, Debug)]
+pub struct AthleteCollection {
     pub id: f64,
     pub username: String,
     pub resource_state: i64,
@@ -19,24 +19,24 @@ pub struct AtheleteCollection {
     pub profile: String,
     pub friend: Option<serde_json::Value>,
     pub follower: Option<serde_json::Value>,
-    pub follower_count: i64,
-    pub friend_count: i64,
-    pub mutual_friend_count: i64,
-    pub athlete_type: i64,
-    pub date_preference: String,
-    pub measurement_preference: String,
-    pub clubs: Vec<Option<serde_json::Value>>,
+    pub follower_count: Option<i64>,
+    pub friend_count: Option<i64>,
+    pub mutual_friend_count: Option<i64>,
+    pub athlete_type: Option<i64>,
+    pub date_preference: Option<String>,
+    pub measurement_preference: Option<String>,
+    pub clubs: Option<Vec<Option<serde_json::Value>>>,
     pub ftp: Option<serde_json::Value>,
-    pub weight: i64,
-    pub bikes: Vec<Bike>,
-    pub shoes: Vec<Bike>,
+    pub weight: f64,
+    pub bikes: Option<Vec<Bike>>,
+    pub shoes: Option<Vec<Bike>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Bike {
     pub id: String,
     pub primary: bool,
     pub name: String,
     pub resource_state: i64,
-    pub distance: i64,
+    pub distance: f64,
 }
