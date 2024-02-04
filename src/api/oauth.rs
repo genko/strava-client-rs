@@ -71,7 +71,7 @@ pub mod auth {
         let (authorize_url, csrf_state) = client
             .authorize_url(CsrfToken::new_random)
             .add_extra_param("exchange_token&approval_prompt", "force")
-            .add_scope(Scope::new("profile:read_all".to_string()))
+            .add_scope(Scope::new("profile:read_all,activity:read_all".to_string()))
             .url();
 
         // Print the authorization URL and open it in the browser on the terminal
