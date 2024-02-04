@@ -1,8 +1,8 @@
 use serde::{Serialize, Deserialize};
 
-pub type ActvityCollection = Vec<ActivityElement>;
+pub type ActivityCollection = Vec<ActivityElement>;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ActivityElement {
     pub resource_state: i64,
     pub athlete: Athlete,
@@ -10,16 +10,16 @@ pub struct ActivityElement {
     pub distance: f64,
     pub moving_time: i64,
     pub elapsed_time: i64,
-    pub total_elevation_gain: i64,
+    pub total_elevation_gain: f64,
     #[serde(rename = "type")]
-    pub welcome_type: Type,
+    pub activity_type: Type,
     pub sport_type: Type,
     pub workout_type: Option<serde_json::Value>,
     pub id: i64,
     pub start_date: String,
     pub start_date_local: String,
     pub timezone: Timezone,
-    pub utc_offset: i64,
+    pub utc_offset: f64,
     pub location_city: Option<serde_json::Value>,
     pub location_state: Option<serde_json::Value>,
     pub location_country: LocationCountry,
@@ -49,7 +49,7 @@ pub struct ActivityElement {
     pub device_watts: Option<bool>,
     pub has_heartrate: bool,
     pub average_heartrate: Option<f64>,
-    pub max_heartrate: Option<i64>,
+    pub max_heartrate: Option<f64>,
     pub heartrate_opt_out: bool,
     pub display_hide_heartrate_option: bool,
     pub elev_high: Option<f64>,
@@ -63,32 +63,32 @@ pub struct ActivityElement {
     pub has_kudoed: bool,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Athlete {
     pub id: i64,
     pub resource_state: i64,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum GearId {
     G9437312,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize,Debug)]
 pub enum LocationCountry {
     #[serde(rename = "United States")]
     UnitedStates,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Map {
     pub id: String,
     pub summary_polyline: String,
     pub resource_state: i64,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum Type {
     Rowing,
     Run,
@@ -97,7 +97,7 @@ pub enum Type {
     WeightTraining,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum Timezone {
     #[serde(rename = "(GMT-05:00) America/Atikokan")]
     Gmt0500AmericaAtikokan,
@@ -105,7 +105,7 @@ pub enum Timezone {
     Gmt0500AmericaNewYork,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Visibility {
     Everyone,
