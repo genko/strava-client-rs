@@ -32,6 +32,24 @@ pub struct AthleteCollection {
     pub shoes: Option<Vec<Bike>>,
 }
 
+impl AthleteCollection {
+    pub fn get_full_name(&self) -> String {
+        format!("{} {}", self.firstname, self.lastname)
+    }
+
+    pub fn get_id(&self) -> f64 {
+        self.id
+    }
+
+    pub fn get_username(&self) -> String {
+        self.username.clone()
+    }
+
+    pub fn get_weight(&self) -> f64 {
+        self.weight
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Bike {
     pub id: String,
