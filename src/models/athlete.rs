@@ -48,6 +48,23 @@ impl AthleteCollection {
     pub fn get_weight(&self) -> f64 {
         self.weight
     }
+
+    pub fn get_premium(&self) -> bool {
+        self.premium
+    }
+
+    pub fn get_sex(&self) -> String {
+        self.sex.clone()
+    }
+
+    pub fn get_city(&self) -> String {
+        self.city.clone()
+    }
+
+    pub fn get_state(&self) -> String {
+        self.state.clone()
+    }
+
 }
 
 #[derive(Serialize, Deserialize, Debug)]

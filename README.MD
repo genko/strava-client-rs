@@ -8,7 +8,7 @@ This Rust lib will use the Stava API to both read and write against Strava
 ```rust
 use std::env;
 use std::path::Path;
-use strava_client_rs::api::{athlete, auth};
+use strava_client_rs::api::{activities, athlete, auth};
 use strava_client_rs::util::auth_config;
 
 pub fn strava_test() {
@@ -18,11 +18,16 @@ pub fn strava_test() {
 
     // Print the access token
     println!("Access Token: {}", access_token);
-    let athlete = athlete::get_athlete(access_token.as_str());
-    println!("Athlete: {:?}\n", athlete.as_ref().unwrap());
-    let athlete_id = athlete.unwrap().id.to_string();
+    let athlete = athlete::get_athlete(access_token.as_str()).unwrap();
+    println!("Athlete: {:?}\n", athlete);
+
+    let athlete_id = athlete.id.to_string();
+    
     let athlete_stats = athlete::get_athlete_stats(access_token.as_str(), athlete_id.as_str());
     println!("Athlete Stats: {:?}\n", athlete_stats.unwrap());
+    
+    let activities = activities::get_activities(access_token.as_str());
+    println!("Activities: {:?}\n", activities.unwrap());
 }
 
 // Get the access token from the config file or get a new one
