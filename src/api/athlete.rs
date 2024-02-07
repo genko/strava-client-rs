@@ -32,6 +32,10 @@ pub fn get_athlete(access_token: &str) -> Result<models::athlete::AthleteCollect
     Ok(athlete)
 }
 
+// Get the athlete stats from the Strava API for a specific athlete
+// https://developers.strava.com/docs/reference/#api-models-AthleteStats
+// Arguments: access_token: &str, athlete_id: &str
+// Returns: JSON object from AtheleteStats
 pub fn get_athlete_stats(access_token: &str, athlete_id: &str) -> Result<models::athlete::AthleteStats, Box<dyn std::error::Error>> {
     
     let client = reqwest::blocking::Client::new();

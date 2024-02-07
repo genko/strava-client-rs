@@ -1,3 +1,8 @@
+// Athlete model
+// This model is used to represent the athlete object returned by the Strava API
+// Documentation: https://developers.strava.com/docs/reference/#api-models-DetailedAthlete
+// Contains helper methods to convert units and get athlete information
+
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -27,7 +32,7 @@ pub struct AthleteCollection {
     pub measurement_preference: Option<String>,
     pub clubs: Option<Vec<Option<serde_json::Value>>>,
     pub ftp: Option<serde_json::Value>,
-    pub weight: f64,
+    pub weight: f64, // weight in kg
     pub bikes: Option<Vec<Bike>>,
     pub shoes: Option<Vec<Bike>>,
 }
@@ -49,6 +54,10 @@ impl AthleteCollection {
         self.weight
     }
 
+    pub fn weight_in_lbs(&self) -> f64 {
+        self.weight * 2.20462
+    }
+
     pub fn get_premium(&self) -> bool {
         self.premium
     }
@@ -65,6 +74,10 @@ impl AthleteCollection {
         self.state.clone()
     }
 
+    pub fn distance_in_miles(&self, distance: f64) -> f64 {
+        distance * 0.000621371
+    }
+
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -73,7 +86,7 @@ pub struct Bike {
     pub primary: bool,
     pub name: String,
     pub resource_state: i64,
-    pub distance: f64,
+    pub distance: f64, // distance in meters
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -94,8 +107,8 @@ pub struct AthleteStats {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Totals {
     pub count: i64,
-    pub distance: f64,
-    pub moving_time: i64,
+    pub distance: f64, // distance in meters
+    pub moving_time: i64, // time in seconds
     pub elapsed_time: i64,
     pub elevation_gain: f64,
     pub achievement_count: Option<i64>,
