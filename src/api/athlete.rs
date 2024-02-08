@@ -1,5 +1,6 @@
 use crate::{models, api};
 use log::{info, trace, warn};
+use oauth2::AccessToken;
 
 // Get the athlete from the Strava API
 // https://developers.strava.com/docs/reference/#api-models-Athlete
@@ -62,4 +63,16 @@ pub fn get_athlete_stats(access_token: &str, athlete_id: &str) -> Result<models:
     // Parse the JSON response
     let athlete_stats = response.json::<models::athlete::AthleteStats>()?;
     Ok(athlete_stats)
+}
+
+pub fn get_athlete_clubs(access_token: &str) -> Result<models::clubs::Club, Box<dyn std::error::Error>> {
+    let url = api::strava_v3("athlete/clubs".to_string());
+
+    let client = reqwest::blocking::Client::new();
+
+    let response = client.get(url)
+        .bearer_auth(access_token)
+        .send()?;
+    let clubs = response.json::<models::clubs::Club>()?;
+    Ok(clubs)
 }
