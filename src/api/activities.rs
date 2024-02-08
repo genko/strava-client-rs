@@ -1,7 +1,7 @@
 use crate::{models, api};
 use log::{info, trace, warn};
 
-pub fn get_activities(access_token: &str) -> Result<models::activites::ActivityCollection, Box<dyn std::error::Error>> {
+pub fn get_activities(access_token: &str) -> Result<models::activities::ActivityCollection, Box<dyn std::error::Error>> {
     
     let client = reqwest::blocking::Client::new();
     
@@ -20,11 +20,11 @@ pub fn get_activities(access_token: &str) -> Result<models::activites::ActivityC
 
     trace!("Activities API response: {:?}\n", response);
     
-    let activities = response.json::<models::activites::ActivityCollection>()?;
+    let activities = response.json::<models::activities::ActivityCollection>()?;
     Ok(activities)
 }
 
-pub fn get_activities_by_id(access_token: &str, athlete_id: &str) -> Result<models::activites::ActivityCollection, Box<dyn std::error::Error>> {
+pub fn get_activities_by_id(access_token: &str, athlete_id: &str) -> Result<models::activities::ActivityCollection, Box<dyn std::error::Error>> {
     
     let client = reqwest::blocking::Client::new();
     
@@ -44,6 +44,6 @@ pub fn get_activities_by_id(access_token: &str, athlete_id: &str) -> Result<mode
 
     trace!("Activities by ID API response: {:?}\n", response);
     
-    let activities = response.json::<models::activites::ActivityCollection>()?;
+    let activities = response.json::<models::activities::ActivityCollection>()?;
     Ok(activities)
 }

@@ -78,12 +78,12 @@ impl AthleteCollection {
         distance * 0.000621371
     }
 
-    pub fn get_shoes(&self) -> Option<Vec<Gear>> {
-        self.shoes.clone()
+    pub fn get_shoes(&self) -> &Vec<Gear> {
+        self.shoes.as_ref().unwrap()
     }
 
-    pub fn get_bikes(&self) -> Option<Vec<Gear>> {
-        self.bikes.clone()
+    pub fn get_bikes(&self) -> &Vec<Gear> {
+        self.bikes.as_ref().unwrap()
     }
 
 }
