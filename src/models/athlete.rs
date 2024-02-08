@@ -33,8 +33,8 @@ pub struct AthleteCollection {
     pub clubs: Option<Vec<Option<serde_json::Value>>>,
     pub ftp: Option<serde_json::Value>,
     pub weight: f64, // weight in kg
-    pub bikes: Option<Vec<Bike>>,
-    pub shoes: Option<Vec<Bike>>,
+    pub bikes: Option<Vec<Gear>>,
+    pub shoes: Option<Vec<Gear>>,
 }
 
 impl AthleteCollection {
@@ -78,10 +78,18 @@ impl AthleteCollection {
         distance * 0.000621371
     }
 
+    pub fn get_shoes(&self) -> Option<Vec<Gear>> {
+        self.shoes.clone()
+    }
+
+    pub fn get_bikes(&self) -> Option<Vec<Gear>> {
+        self.bikes.clone()
+    }
+
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Bike {
+pub struct Gear {
     pub id: String,
     pub primary: bool,
     pub name: String,
