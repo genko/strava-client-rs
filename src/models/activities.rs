@@ -11,18 +11,16 @@ pub struct ActivityElement {
     pub moving_time: i64,
     pub elapsed_time: i64,
     pub total_elevation_gain: f64,
-    #[serde(rename = "type")]
-    pub activity_type: Type,
-    pub sport_type: Type,
+    pub sport_type: ActivityType,
     pub workout_type: Option<serde_json::Value>,
     pub id: i64,
     pub start_date: String,
     pub start_date_local: String,
-    pub timezone: Timezone,
+    pub timezone: String,
     pub utc_offset: f64,
     pub location_city: Option<serde_json::Value>,
     pub location_state: Option<serde_json::Value>,
-    pub location_country: LocationCountry,
+    pub location_country: String,
     pub achievement_count: i64,
     pub kudos_count: i64,
     pub comment_count: i64,
@@ -33,9 +31,9 @@ pub struct ActivityElement {
     pub commute: bool,
     pub manual: bool,
     pub private: bool,
-    pub visibility: Visibility,
+    pub visibility: String,
     pub flagged: bool,
-    pub gear_id: Option<GearId>,
+    pub gear_id: Option<serde_json::Value>,
     pub start_latlng: Vec<f64>,
     pub end_latlng: Vec<f64>,
     pub average_speed: f64,
@@ -66,19 +64,7 @@ pub struct ActivityElement {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Athlete {
     pub id: i64,
-    pub resource_state: i64,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum GearId {
-    G9437312,
-}
-
-#[derive(Serialize, Deserialize,Debug)]
-pub enum LocationCountry {
-    #[serde(rename = "United States")]
-    UnitedStates,
+    pub resource_state: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -89,24 +75,34 @@ pub struct Map {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub enum Type {
+pub enum ActivityType {
     Rowing,
     Run,
     Walk,
-    #[serde(rename = "WeightTraining")]
     WeightTraining,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub enum Timezone {
-    #[serde(rename = "(GMT-05:00) America/Atikokan")]
-    Gmt0500AmericaAtikokan,
-    #[serde(rename = "(GMT-05:00) America/New_York")]
-    Gmt0500AmericaNewYork,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum Visibility {
-    Everyone,
+    Ride,
+    Swim,
+    Hike,
+    AlpineSki,
+    BackcountrySki,
+    Canoeing,
+    Crossfit,
+    EBikeRide,
+    Elliptical,
+    IceSkate,
+    InlineSkate,
+    Kayaking,
+    Kitesurf,
+    NordicSki,
+    RockClimbing,
+    RollerSki,
+    Snowboard,
+    Snowshoe,
+    StairStepper,
+    StandUpPaddling,
+    Surfing,
+    Windsurf,
+    Workout,
+    Yoga,
+    Unknown,
 }
