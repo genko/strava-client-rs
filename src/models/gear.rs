@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 // This model is used to represent the gear object returned by the Strava API
 // Documentation: https://developers.strava.com/docs/reference/#api-Gears
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Welcome {
+pub struct GearCollection {
     pub id: String,
     pub primary: bool,
     pub name: String,
