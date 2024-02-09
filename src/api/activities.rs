@@ -44,7 +44,7 @@ pub fn get_activities_by_id(access_token: &str, activity_id: &str) -> Result<mod
 
     handle_api_error(response.status())?;
     trace!("Activities by ID API response: {:?}\n", response);
-    
+
     let activity = response.json::<models::activities::ActivityElement>()?;
     Ok(activity)
 }

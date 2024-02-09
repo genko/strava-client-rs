@@ -6,6 +6,8 @@ pub mod athlete;
 pub mod activities;
 pub mod gear;
 pub mod helpers;
+pub mod club;
+
 pub use self::helpers::handle_api_error;
 
 // Returns the URL for the Strava API
