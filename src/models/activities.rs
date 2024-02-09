@@ -1,5 +1,11 @@
+// Activities model
+// This model is used to represent the athlete object returned by the Strava API
+// Documentation: https://developers.strava.com/docs/reference/#api-Activities
+// Contains helper methods to convert units
+
 use serde::{Serialize, Deserialize};
 
+// Collection used to retrieve all activities
 pub type ActivityCollection = Vec<ActivityElement>;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -61,6 +67,19 @@ pub struct ActivityElement {
     pub has_kudoed: bool,
 }
 
+impl ActivityElement {
+    pub fn distance_in_miles(&self, distance: f64) -> f64 {
+        distance * 0.000621371
+    }
+
+    pub fn moving_time_in_mins(&self, moving_time: f64) -> f64 {
+        moving_time / 60.0
+    }
+
+    pub fn elasped_time_in_mins(&self, elapsed_time: f64) -> f64 {
+        elapsed_time / 60.0
+    }
+}
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Athlete {
     pub id: i64,
