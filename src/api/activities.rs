@@ -1,5 +1,6 @@
 use crate::{models, api};
 use log::{info, trace, warn};
+use crate::api::handle_api_error;
 
 // Get the activities from the Strava API for logged in athlete
 // https://developers.strava.com/docs/reference/#api-Activities
@@ -16,11 +17,8 @@ pub fn get_activities(access_token: &str) -> Result<models::activities::Activity
     .send()?;
 
     info!("Calling Activities API\n");
-    
-    if response.status().is_client_error() {
-        warn!("API response: {:?}", response);
-        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "API returned an error")));
-    }
+
+    handle_api_error(response.status())?;
 
     trace!("Activities API response: {:?}\n", response);
     
@@ -43,12 +41,8 @@ pub fn get_activities_by_id(access_token: &str, activity_id: &str) -> Result<mod
     .send()?;
 
     info!("Calling Activities by ID API\n");
-    
-    if response.status().is_client_error() {
-        warn!("API response: {:?}", response);
-        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "API returned an error")));
-    }
 
+    handle_api_error(response.status())?;
     trace!("Activities by ID API response: {:?}\n", response);
     
     let activity = response.json::<models::activities::ActivityElement>()?;
