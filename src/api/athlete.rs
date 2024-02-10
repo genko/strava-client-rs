@@ -1,6 +1,6 @@
-use log::{info, trace, warn};
 use crate::api::helpers::{fetch_from_strava_api, strava_v3};
 use crate::models::{athlete, clubs};
+use log::{info, trace};
 
 // Get the athlete from the Strava API
 // https://developers.strava.com/docs/reference/#api-models-Athlete
