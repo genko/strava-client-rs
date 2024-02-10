@@ -1,4 +1,7 @@
 # strava-client-rs
+![Crates.io Version](https://img.shields.io/crates/v/strava-client-rs)
+[<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-strava-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/strava-client-rs)
+
 Strava API Client in Rust that uses OAuth2 to get and refresh the access token
 
 ## Example
