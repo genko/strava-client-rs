@@ -28,7 +28,7 @@ pub fn get_activities_by_id(
     activity_id: &str,
 ) -> Result<activities::ActivityElement, Box<dyn std::error::Error>> {
     let url = strava_v3(format!("/activities/{}", activity_id));
-    let response = fetch_from_strava_api(url, access_token);
+    let response = fetch_from_strava_api(url, access_token)?;
 
     info!("Calling Activities by ID API\n");
 

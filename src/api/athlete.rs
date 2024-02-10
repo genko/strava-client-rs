@@ -13,7 +13,7 @@ pub fn get_athlete(
     let url = strava_v3("athlete".to_string());
     info!("Calling Strava Athlete API");
     // Call the API with the access token
-    let response = fetch_from_strava_api(url, access_token);
+    let response = fetch_from_strava_api(url, access_token)?;
 
     trace!("Athlete API response: {:?}\n", response);
 
@@ -34,7 +34,7 @@ pub fn get_athlete_stats(
     let path = format!("athletes/{}/stats", athlete_id);
     let url = strava_v3(path);
 
-    let response = fetch_from_strava_api(url, access_token);
+    let response = fetch_from_strava_api(url, access_token)?;
     info!("Calling Athlete Stats API\n");
 
     trace!("Athlete Stats API response: {:?}\n", response);
@@ -49,7 +49,7 @@ pub fn get_athlete_clubs(
 ) -> Result<clubs::ClubCollection, Box<dyn std::error::Error>> {
     let url = strava_v3("athlete/clubs".to_string());
 
-    let response = fetch_from_strava_api(url, access_token);
+    let response = fetch_from_strava_api(url, access_token)?;
     let clubs: clubs::ClubCollection = response.json()?;
     Ok(clubs)
 }
