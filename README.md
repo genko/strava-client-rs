@@ -1,5 +1,5 @@
 # strava-client-rs
-Srava API Client in Rust that uses OAuth2 to get and refresh the access token
+Strava API Client in Rust that uses OAuth2 to get and refresh the access token
 
 ## Example
 ```rust
@@ -47,7 +47,7 @@ fn get_access_token(config_file: String) -> Result<String, String> {
 }
 ```
 
-## Disclamier
+## Disclaimer
 This library is not affiliated with Strava. Use at your own risk. 
 This is very much a work in progress. In the current release it is read only for athlete, gear, club, and activities.
 Will be adding write access to athlete and upload in future releases.
