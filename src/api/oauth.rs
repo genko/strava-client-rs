@@ -3,7 +3,7 @@ use oauth2::basic::BasicClient;
 use oauth2::reqwest::http_client;
 use oauth2::{
     AuthUrl, AuthorizationCode, ClientId, ClientSecret, CsrfToken, RedirectUrl, Scope, RequestTokenError,
-    TokenUrl, RefreshToken, TokenResponse
+    TokenUrl, RefreshToken, TokenResponse,
 };
 use log::{info, warn, trace};
 
@@ -14,7 +14,6 @@ use log::{info, warn, trace};
 // Calls the reqwest module to make the request to the Strava API to get the access token and refresh token.
 
 pub mod auth {
-
     use super::*;
 
     // Config struct to hold the client_id, client_secret, refresh_token, auth_url, and token_url
@@ -44,14 +43,14 @@ pub mod auth {
 
     // Get the authorization code from the redirect URL and exchange it for an access token and refresh token.
     pub fn get_authorization(config: Config) -> Result<String, String> {
-        
-      
+
+
         // Set the client_id, client_secret, auth_url, and token_url
         let strava_client_id = ClientId::new(config.client_id.clone());
         let strava_client_secret = ClientSecret::new(config.client_secret.clone());
         let auth_url = AuthUrl::new(config.auth_url).expect("Invalid authorization endpoint URL");
         let token_url = TokenUrl::new(config.token_url).expect("Invalid token endpoint URL");
-        
+
         // Set the redirect URL this is where the code and state will be sent to
         // The redirect module is configured to listen on localhost:8888 for the redirect URL
         let redirect_url = RedirectUrl::new("http://localhost:8888".to_string()).expect("Invalid redirect URL");
@@ -63,7 +62,7 @@ pub mod auth {
             auth_url,
             Some(token_url),
         ).
-        set_redirect_uri(redirect_url);
+            set_redirect_uri(redirect_url);
 
         info!("Authorization URL: {:?}", client.authorize_url(CsrfToken::new_random).url());
 
@@ -76,14 +75,14 @@ pub mod auth {
 
         // Print the authorization URL and open it in the browser on the terminal
         println!("Open this URL in your browser:\n{}\n",
-                authorize_url);
-            
+                 authorize_url);
+
         // Get the code and state from the redirect URL
         let get_response_params = redirect::server::run();
 
         trace!("Code: {}", get_response_params.get("code").unwrap());
         trace!("State: {}", get_response_params.get("state").unwrap());
-        
+
         // Create the AuthorizationCode and CsrfToken from the code and state
         let code = AuthorizationCode::new(get_response_params.get("code").unwrap().to_string());
         let state = CsrfToken::new(get_response_params.get("state").unwrap().to_string());
@@ -95,41 +94,41 @@ pub mod auth {
 
         // Exchange the code for an access token and refresh token
         let token_res = client.exchange_code(code).
-        add_extra_param("client_id", config.client_id).
-        add_extra_param("client_secret", config.client_secret).
-        request(http_client).
-        map_err(|e| {
-            match e {
-                RequestTokenError::ServerResponse(provider_err) => {
-                    warn!("Server returned error response: {:?}", provider_err)
-                },
-                RequestTokenError::Request(req) => {
-                    warn!("Request failed: {:?}", req)
-                },
-                RequestTokenError::Parse(parse_err, res) => {
-                    let body = match std::str::from_utf8(&res) {
-                        Ok(text) => text.to_string(),
-                        Err(_) => format!("{:?}", &res),
-                    };
-                    warn!("Failed to parse server response: {} [response={:?}]",
+            add_extra_param("client_id", config.client_id).
+            add_extra_param("client_secret", config.client_secret).
+            request(http_client).
+            map_err(|e| {
+                match e {
+                    RequestTokenError::ServerResponse(provider_err) => {
+                        warn!("Server returned error response: {:?}", provider_err)
+                    }
+                    RequestTokenError::Request(req) => {
+                        warn!("Request failed: {:?}", req)
+                    }
+                    RequestTokenError::Parse(parse_err, res) => {
+                        let body = match std::str::from_utf8(&res) {
+                            Ok(text) => text.to_string(),
+                            Err(_) => format!("{:?}", &res),
+                        };
+                        warn!("Failed to parse server response: {} [response={:?}]",
                         parse_err, body)
-                },
-                RequestTokenError::Other(_msg) => {
-                    warn!("Failed to perform request: {}", _msg)
-                },
-            };
-        });
-        
+                    }
+                    RequestTokenError::Other(_msg) => {
+                        warn!("Failed to perform request: {}", _msg)
+                    }
+                };
+            });
+
         let token_res = token_res.unwrap();
         let refresh_token = token_res.refresh_token().unwrap().secret().to_string();
         let access_token = token_res.access_token().secret().to_string();
-        
+
         trace!("Access Token: {}", access_token);
         trace!("Refresh Token: {}", refresh_token);
-        
+
         // Write the access token and refresh token to the config file
         auth_config::config_file::write_config(&access_token, &refresh_token);
-        
+
         Ok(access_token)
     }
 
@@ -153,10 +152,10 @@ pub mod auth {
 
         // Exchange the refresh token for a new access token and refresh token
         let refresh_res = client.
-        exchange_refresh_token(&refresh_token).
-        add_extra_param("client_id", config.client_id).
-        add_extra_param("client_secret", config.client_secret).
-        request(http_client);
+            exchange_refresh_token(&refresh_token).
+            add_extra_param("client_id", config.client_id).
+            add_extra_param("client_secret", config.client_secret).
+            request(http_client);
 
         let refresh_res = refresh_res.unwrap();
         let refresh_token = refresh_res.refresh_token().unwrap().secret().to_string();
@@ -164,12 +163,9 @@ pub mod auth {
 
         trace!("Access Token: {}", access_token);
         trace!("Refresh Token: {}", refresh_token);
-        
+
         // Write the access token and refresh token to the config file
         auth_config::config_file::write_config(&access_token, &refresh_token);
         Ok(access_token)
-
     }
-
-
 }

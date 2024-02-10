@@ -1,5 +1,7 @@
 pub mod athlete;
+
 pub use self::athlete::AthleteCollection;
+
 pub mod activities;
 pub mod gear;
 pub mod clubs;

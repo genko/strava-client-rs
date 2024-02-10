@@ -32,7 +32,8 @@ pub struct AthleteCollection {
     pub measurement_preference: Option<String>,
     pub clubs: Option<Vec<Option<serde_json::Value>>>,
     pub ftp: Option<serde_json::Value>,
-    pub weight: f64, // weight in kg
+    pub weight: f64,
+    // weight in kg
     pub bikes: Option<Vec<Gear>>,
     pub shoes: Option<Vec<Gear>>,
 }
@@ -85,7 +86,6 @@ impl AthleteCollection {
     pub fn get_bikes(&self) -> &Vec<Gear> {
         self.bikes.as_ref().unwrap()
     }
-
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -115,8 +115,10 @@ pub struct AthleteStats {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Totals {
     pub count: i64,
-    pub distance: f64, // distance in meters
-    pub moving_time: i64, // time in seconds
+    pub distance: f64,
+    // distance in meters
+    pub moving_time: i64,
+    // time in seconds
     pub elapsed_time: i64,
     pub elevation_gain: f64,
     pub achievement_count: Option<i64>,

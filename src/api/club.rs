@@ -1,4 +1,5 @@
-use crate::api::{handle_api_error, strava_v3};
+use crate::api::handle_api_error;
+use crate::api::helpers::strava_v3;
 use crate::models;
 
 pub fn get_club_by_id(access_token: &str, club_id: &str) -> Result<models::clubs::Club, Box<dyn std::error::Error>> {

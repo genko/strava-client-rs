@@ -1,6 +1,6 @@
-use crate::{models, api};
+use crate::models;
 use log::{info, trace, warn};
-use oauth2::AccessToken;
+use crate::api::helpers;
 
 // Get the athlete from the Strava API
 // https://developers.strava.com/docs/reference/#api-models-Athlete
@@ -11,7 +11,7 @@ pub fn get_athlete(access_token: &str) -> Result<models::athlete::AthleteCollect
     let client = reqwest::blocking::Client::new();
     
     // Get the URL for the API
-    let url = api::strava_v3("athlete".to_string());
+    let url = helpers::strava_v3("athlete".to_string());
    
     // Call the API with the access token
     let response = client.get(url)
@@ -43,7 +43,7 @@ pub fn get_athlete_stats(access_token: &str, athlete_id: &str) -> Result<models:
     
     // Get the URL for the API
     let path = format!("athletes/{}/stats", athlete_id);
-    let url = api::strava_v3(path);
+    let url = helpers::strava_v3(path);
    
     // Call the API with the access token
     let response = client.get(url)
@@ -66,7 +66,7 @@ pub fn get_athlete_stats(access_token: &str, athlete_id: &str) -> Result<models:
 }
 
 pub fn get_athlete_clubs(access_token: &str) -> Result<models::clubs::ClubCollection, Box<dyn std::error::Error>> {
-    let url = api::strava_v3("athlete/clubs".to_string());
+    let url = helpers::strava_v3("athlete/clubs".to_string());
 
     let client = reqwest::blocking::Client::new();
 

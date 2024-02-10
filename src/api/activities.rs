@@ -1,6 +1,6 @@
-use crate::{models, api};
-use log::{info, trace, warn};
-use crate::api::handle_api_error;
+use crate::models;
+use log::{info, trace};
+use crate::api::{handle_api_error, helpers};
 
 // Get the activities from the Strava API for logged in athlete
 // https://developers.strava.com/docs/reference/#api-Activities
@@ -10,7 +10,7 @@ pub fn get_activities(access_token: &str) -> Result<models::activities::Activity
     
     let client = reqwest::blocking::Client::new();
     
-    let url = api::strava_v3("athlete/activities".to_string());
+    let url = helpers::strava_v3("athlete/activities".to_string());
    
     let response = client.get(url)
     .bearer_auth(access_token)
@@ -34,7 +34,7 @@ pub fn get_activities_by_id(access_token: &str, activity_id: &str) -> Result<mod
     let client = reqwest::blocking::Client::new();
     
     let path = format!("/activities/{}", activity_id);
-    let url = api::strava_v3(path);
+    let url = helpers::strava_v3(path);
    
     let response = client.get(url)
     .bearer_auth(access_token)

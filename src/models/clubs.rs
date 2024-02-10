@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 pub type ClubCollection = Vec<Club>;
 #[derive(Debug, Serialize, Deserialize)]
@@ -67,4 +67,3 @@ pub struct Athlete {
     pub firstname: String,
     pub lastname: String,
 }
-

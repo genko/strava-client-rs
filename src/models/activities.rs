@@ -80,6 +80,7 @@ impl ActivityElement {
         elapsed_time / 60.0
     }
 }
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Athlete {
     pub id: i64,

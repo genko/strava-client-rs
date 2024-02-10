@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 // Gear model
 // This model is used to represent the gear object returned by the Strava API
