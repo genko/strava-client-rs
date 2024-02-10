@@ -1,59 +1,94 @@
-use crate::api::handle_api_error;
-use crate::api::helpers::strava_v3;
-use crate::models;
+//! # Club Module
+//!
+//! `club.rs` This module is the main interface with the Strava API for club operations. It provides
+//! functionality to retrieve data related to a specific club such as the club details,
+//! club members, club admins, and club activities.
 
-pub fn get_club_by_id(access_token: &str, club_id: &str) -> Result<models::clubs::Club, Box<dyn std::error::Error>> {
-    let path = format!("/clubs/{}", club_id);
-    let url = strava_v3(path);
+use crate::api::helpers::{fetch_from_strava_api, strava_v3};
+use crate::models::clubs;
+use log::{info, trace};
 
-    let client = reqwest::blocking::Client::new();
-
-    let response = client.get(url).
-        bearer_auth(access_token).
-        send()?;
-    handle_api_error(response.status())?;
-    let club: models::clubs::Club = response.json()?;
+/// Get club details by ID.
+///
+/// # Arguments
+///
+/// * `access_token` - The user's access token.
+/// * `club_id` - The ID of the club.
+///
+/// # Returns
+///
+/// * `Result<clubs::Club>` - Club object or a Boxed Error
+pub fn get_club_by_id(
+    access_token: &str,
+    club_id: &str,
+) -> Result<clubs::Club, Box<dyn std::error::Error>> {
+    trace!("Club ID: {:?}", club_id);
+    let url = strava_v3(format!("/clubs/{}", club_id));
+    info!("Calling Clubs by ID Strava API");
+    let response = fetch_from_strava_api(url, access_token)?;
+    let club: clubs::Club = response.json()?;
     Ok(club)
 }
 
-pub fn get_club_members(access_token: &str, club_id: &str) -> Result<models::clubs::ClubMembers, Box<dyn std::error::Error>>  {
-
-    let path = format!("/clubs/{}/members", club_id);
-    let url = strava_v3(path);
-
-    let client = reqwest::blocking::Client::new();
-
-    let response = client.get(url).bearer_auth(access_token).send()?;
-
-    handle_api_error(response.status())?;
-    let members: models::clubs::ClubMembers = response.json()?;
+/// Get club members by club ID.
+///
+/// # Arguments
+///
+/// * `access_token` - The user's access token.
+/// * `club_id` - The ID of the club.
+///
+/// # Returns
+///
+/// * `Result<clubs::ClubMembers>` - A list of club members or a Boxed Error
+pub fn get_club_members(
+    access_token: &str,
+    club_id: &str,
+) -> Result<clubs::ClubMembers, Box<dyn std::error::Error>> {
+    let url = strava_v3(format!("/clubs/{}/members", club_id));
+    info!("Calling Strava Club Members API");
+    let response = fetch_from_strava_api(url, access_token)?;
+    let members: clubs::ClubMembers = response.json()?;
     Ok(members)
 }
 
-pub fn get_club_admins(access_token: &str, club_id: &str) -> Result<models::clubs::ClubAdmins, Box<dyn std::error::Error>>  {
-
-    let path = format!("/clubs/{}/admins", club_id);
-    let url = strava_v3(path);
-
-    let client = reqwest::blocking::Client::new();
-
-    let response = client.get(url).bearer_auth(access_token).send()?;
-
-    handle_api_error(response.status())?;
-    let admins: models::clubs::ClubAdmins = response.json()?;
+/// Get club admins by club ID.
+///
+/// # Arguments
+///
+/// * `access_token` - The user's access token.
+/// * `club_id` - The ID of the club.
+///
+/// # Returns
+///
+/// * `Result<clubs::ClubAdmins>` - A list of club admins or a Boxed Error
+pub fn get_club_admins(
+    access_token: &str,
+    club_id: &str,
+) -> Result<clubs::ClubAdmins, Box<dyn std::error::Error>> {
+    let url = strava_v3(format!("/clubs/{}/admins", club_id));
+    info!("Calling Strava Club Admins API");
+    let response = fetch_from_strava_api(url, access_token)?;
+    let admins: clubs::ClubAdmins = response.json()?;
     Ok(admins)
 }
 
-pub fn get_club_activities(access_token: &str, club_id: &str) -> Result<models::clubs::ClubActivities, Box<dyn std::error::Error>>  {
-
-    let path = format!("/clubs/{}/activities", club_id);
-    let url = strava_v3(path);
-
-    let client = reqwest::blocking::Client::new();
-
-    let response = client.get(url).bearer_auth(access_token).send()?;
-
-    handle_api_error(response.status())?;
-    let club_activities: models::clubs::ClubActivities = response.json()?;
+/// Get club activities by club ID.
+///
+/// # Arguments
+///
+/// * `access_token` - The user's access token.
+/// * `club_id` - The ID of the club.
+///
+/// # Returns
+///
+/// * `Result<clubs::ClubActivities>` - A list of club activities or a Boxed Error
+pub fn get_club_activities(
+    access_token: &str,
+    club_id: &str,
+) -> Result<clubs::ClubActivities, Box<dyn std::error::Error>> {
+    let url = strava_v3(format!("/clubs/{}/activities", club_id));
+    info!("Calling Strava Get Club Activities API");
+    let response = fetch_from_strava_api(url, access_token)?;
+    let club_activities: clubs::ClubActivities = response.json()?;
     Ok(club_activities)
 }

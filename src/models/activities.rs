@@ -3,7 +3,7 @@
 // Documentation: https://developers.strava.com/docs/reference/#api-Activities
 // Contains helper methods to convert units
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 // Collection used to retrieve all activities
 pub type ActivityCollection = Vec<ActivityElement>;

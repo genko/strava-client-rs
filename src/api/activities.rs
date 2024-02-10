@@ -1,50 +1,39 @@
-use crate::models;
 use log::{info, trace};
-use crate::api::{handle_api_error, helpers};
+
+use crate::api::helpers::{fetch_from_strava_api, strava_v3};
+use crate::models::activities;
 
 // Get the activities from the Strava API for logged in athlete
 // https://developers.strava.com/docs/reference/#api-Activities
 // Arguments: access_token: &str
 // Returns: JSON object from ActivityCollection
-pub fn get_activities(access_token: &str) -> Result<models::activities::ActivityCollection, Box<dyn std::error::Error>> {
-    
-    let client = reqwest::blocking::Client::new();
-    
-    let url = helpers::strava_v3("athlete/activities".to_string());
-   
-    let response = client.get(url)
-    .bearer_auth(access_token)
-    .send()?;
+pub fn get_activities(
+    access_token: &str,
+) -> Result<activities::ActivityCollection, Box<dyn std::error::Error>> {
+    let url = strava_v3("athlete/activities".to_string());
+    info!("Calling Strava Activities API\n");
 
-    info!("Calling Activities API\n");
-
-    handle_api_error(response.status())?;
-
+    let response = fetch_from_strava_api(url, access_token)?;
     trace!("Activities API response: {:?}\n", response);
-    
-    let activities = response.json::<models::activities::ActivityCollection>()?;
+
+    let activities: activities::ActivityCollection = response.json()?;
     Ok(activities)
 }
 
 // Get activity by ID
 // Arguments: access_token: &str, activity_id: &str
 // Returns json object from ActivityElement model
-pub fn get_activities_by_id(access_token: &str, activity_id: &str) -> Result<models::activities::ActivityElement, Box<dyn std::error::Error>> {
-    
-    let client = reqwest::blocking::Client::new();
-    
-    let path = format!("/activities/{}", activity_id);
-    let url = helpers::strava_v3(path);
-   
-    let response = client.get(url)
-    .bearer_auth(access_token)
-    .send()?;
+pub fn get_activities_by_id(
+    access_token: &str,
+    activity_id: &str,
+) -> Result<activities::ActivityElement, Box<dyn std::error::Error>> {
+    let url = strava_v3(format!("/activities/{}", activity_id));
+    let response = fetch_from_strava_api(url, access_token);
 
     info!("Calling Activities by ID API\n");
 
-    handle_api_error(response.status())?;
     trace!("Activities by ID API response: {:?}\n", response);
 
-    let activity = response.json::<models::activities::ActivityElement>()?;
+    let activity: activities::ActivityElement = response.json()?;
     Ok(activity)
 }

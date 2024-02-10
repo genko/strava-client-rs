@@ -3,7 +3,7 @@
 // Documentation: https://developers.strava.com/docs/reference/#api-models-DetailedAthlete
 // Contains helper methods to convert units and get athlete information
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AthleteCollection {
