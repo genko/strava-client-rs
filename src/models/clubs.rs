@@ -1,6 +1,6 @@
-/// #  Clubs Model
-/// This model is used to represent the club object returned by the Strava API
-/// Documentation: https://developers.strava.com/docs/reference/#api-Clubs
+//! #  Clubs Model
+//! This model is used to represent the club object returned by the Strava API
+//! Documentation: https://developers.strava.com/docs/reference/#api-Clubs
 use serde::{Deserialize, Serialize};
 
 /// Collection of clubs

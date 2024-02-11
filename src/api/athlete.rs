@@ -1,11 +1,17 @@
+//! # Module athlete
+//! Get the athlete from the Strava API
+//! https://developers.strava.com/docs/reference/#api-models-Athlete
+//! Arguments: access_token: &str
+//! Returns: JSON object from AthleteCollection
+
 use crate::api::helpers::{fetch_from_strava_api, strava_v3};
 use crate::models::{athlete, clubs};
 use log::{info, trace};
 
-// Get the athlete from the Strava API
-// https://developers.strava.com/docs/reference/#api-models-Athlete
-// Arguments: access_token: &str
-// Returns: JSON object from AtheleteCollection
+/// Public function to get the athlete from the Strava API
+/// Arguments: access_token: &str
+/// Returns: JSON object from AthleteCollection
+/// Example: let athlete = get_athlete("access_token");
 pub fn get_athlete(
     access_token: &str,
 ) -> Result<athlete::AthleteCollection, Box<dyn std::error::Error>> {
@@ -22,10 +28,11 @@ pub fn get_athlete(
     Ok(athlete)
 }
 
-// Get the athlete stats from the Strava API for a specific athlete
-// https://developers.strava.com/docs/reference/#api-models-AthleteStats
-// Arguments: access_token: &str, athlete_id: &str
-// Returns: JSON object from AthleteStats
+/// Get the athlete stats from the Strava API for a specific athlete
+/// https://developers.strava.com/docs/reference/#api-models-AthleteStats
+/// Arguments: access_token: &str, athlete_id: &str
+/// Returns: JSON object from AthleteStats
+/// Example: let stats = get_athlete_stats("access_token", "athlete_id");
 pub fn get_athlete_stats(
     access_token: &str,
     athlete_id: &str,
@@ -44,6 +51,10 @@ pub fn get_athlete_stats(
     Ok(athlete_stats)
 }
 
+/// Get the athlete clubs from the Strava API for a specific athlete
+/// Arguments: access_token: &str
+/// Returns: JSON object from ClubCollection
+/// Example: let clubs = get_athlete_clubs("access_token");
 pub fn get_athlete_clubs(
     access_token: &str,
 ) -> Result<clubs::ClubCollection, Box<dyn std::error::Error>> {

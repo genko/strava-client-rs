@@ -1,7 +1,7 @@
-/// # Athlete model
-/// This model is used to represent the athlete object returned by the Strava API
-/// Documentation: https://developers.strava.com/docs/reference/#api-models-DetailedAthlete
-/// Contains helper methods to convert units and get athlete information
+//! # Athlete model
+//! This model is used to represent the athlete object returned by the Strava API
+//! Documentation: https://developers.strava.com/docs/reference/#api-models-DetailedAthlete
+//! Contains helper methods to convert units and get athlete information
 use serde::{Deserialize, Serialize};
 
 /// Athlete fields returned from the API

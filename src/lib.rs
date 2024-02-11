@@ -11,11 +11,11 @@
 //! * Activities
 //! * Clubs
 //! * Gear
-//! 
+//!
 //! Future support will include write operations and more endpoints.
-//! 
+//!
 //! # Examples
-//! 
+//!
 //! Get authenticated athlete
 //! ```no_run
 //! use strava_client_rs::{api::{auth, athlete}};
@@ -63,7 +63,6 @@
 //! }
 //! ```
 //! Disclaimer: This library is not affiliated with Strava and is not an official Strava library.
-
 
 pub mod api;
 pub mod models;

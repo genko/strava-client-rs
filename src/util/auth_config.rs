@@ -1,18 +1,7 @@
-/// # auth_config.rs
-/// Checks to see if a config file exists and pulls the access_code and refresh_token
-/// Can create a config file that stores the access_code and refresh_token if not found
-/// # Example
-/// ```no_run
-///  // Check if the config file exists and get the access token or get a new one
-///  if Path::new(&config_file).exists() {
-///     config.refresh_token = Some(auth_config::config_file::load_config().refresh_token);
-///     let refresh_access_token = auth::get_refresh_token(config);
-///     Ok(refresh_access_token.unwrap().to_string())
-///  } else {
-///      let access_token = auth::get_authorization(config);
-///     Ok(access_token.unwrap().to_string())
-///  }
-/// ```
+//! # auth_config.rs
+//! Checks to see if a config file exists and pulls the access_code and refresh_token
+//! Can create a config file that stores the access_code and refresh_token if not found
+
 use log::{trace, warn};
 use serde::{Deserialize, Serialize};
 use std::env;

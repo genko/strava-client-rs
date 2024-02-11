@@ -1,12 +1,12 @@
+//! # redirect.rs
+//! Set up a server to listen for the OAuth2 redirect and returns the code and state from the redirect URL as a HashMap.
+//! It binds to localhost on port 8888.
+//! The server is stopped after the redirect is received and the code and state are returned.
+//! If the code or state are not received, the program will exit.
+
+use log::{info, trace, warn};
 use std::collections::HashMap;
 use std::process;
-
-/// # redirect.rs
-/// Set up a server to listen for the OAuth2 redirect and returns the code and state from the redirect URL as a HashMap.
-/// It binds to localhost on port 8888.
-/// The server is stopped after the redirect is received and the code and state are returned.
-/// If the code or state are not received, the program will exit.
-use log::{info, trace, warn};
 use tiny_http::{Response, Server};
 use url::Url;
 

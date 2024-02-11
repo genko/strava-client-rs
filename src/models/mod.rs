@@ -1,5 +1,5 @@
-//*  # Strava_client_rs Models
-//* Models used to serialize and deserialize the json objects returned from the API
+//!  # Strava_client_rs Models
+//! Models used to serialize and deserialize the json objects returned from the API
 
 pub use self::activities::ActivityCollection;
 pub use self::athlete::AthleteCollection;

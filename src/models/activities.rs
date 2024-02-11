@@ -1,7 +1,7 @@
-/// # Activities model
-/// This model is used to represent the athlete object returned by the Strava API
-/// Documentation: https://developers.strava.com/docs/reference/#api-Activities
-/// Contains helper methods to convert units
+//! # Activities model
+//! This model is used to represent the athlete object returned by the Strava API
+//! Documentation: https://developers.strava.com/docs/reference/#api-Activities
+//! Contains helper methods to convert units
 use serde::{Deserialize, Serialize};
 
 /// Collection used to retrieve all activities
