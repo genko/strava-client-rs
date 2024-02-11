@@ -49,6 +49,8 @@ fn get_access_token(config_file: String) -> Result<String, String> {
         Ok(access_token.unwrap().to_string()) }
 }
 ```
+## Versions
+* [Release Notes](https://github.com/qgriffith/strava-client-rs/releases)
 
 ## Disclaimer
 This library is not affiliated with Strava. Use at your own risk. 

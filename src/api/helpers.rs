@@ -1,4 +1,5 @@
-// Helper Functions for the API
+//! # helpers.rs
+//! Helper Functions for the calling the Strava API
 
 use log::warn;
 use reqwest::blocking::Response;
@@ -6,11 +7,17 @@ use reqwest::blocking::Response;
 const STRAVA_BASE_URL: &str = "https://www.strava.com/api/v3/";
 const API_ERROR_MESSAGE: &str = "API returned an error";
 
-// Returns the URL for the Strava API
+/// ## strava_v3
+/// Formats the path for the Strava API endpoint
+/// Returns the URL for the Strava API
 pub fn strava_v3(path: String) -> String {
     format!("{}{}", STRAVA_BASE_URL, path)
 }
 
+/// ## fetch_from_strava_api
+/// Takes the URL and access token to perform a *GET* request
+/// for the giving API endpoint in the url
+/// Returns *reqwest response* or error message from the response
 pub fn fetch_from_strava_api(
     url: String,
     access_token: &str,

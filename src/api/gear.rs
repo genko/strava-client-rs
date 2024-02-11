@@ -1,14 +1,14 @@
-// Gear Module
-// This module is responsible for retrieving gear information from an API.
-// It makes use of the gear id and access token to pull the info from Strava Gear API
+//! # Gear Module
+//! This module is responsible for retrieving gear information from an API.
+//! It makes use of the gear id and access token to pull the info from Strava Gear API
 
 use crate::api::helpers::{fetch_from_strava_api, strava_v3};
 use crate::models::gear::GearCollection;
 use log::{info, trace};
 
-// Function get_gear
-// Arguments: access_token: &str, gear_id: &str
-// Returns gear object
+/// Function get_gear
+/// Arguments: access_token: &str, gear_id: &str
+/// Returns gear object
 pub fn get_gear(
     access_token: &str,
     gear_id: &str,

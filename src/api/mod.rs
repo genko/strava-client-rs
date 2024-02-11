@@ -1,4 +1,6 @@
-// Strava API module
+//! # Strava API module
+//! Mods used to call the different Strava end-points
+//! Documentation: https://developers.strava.com/docs/reference/
 
 pub use self::helpers::strava_v3;
 pub use self::oauth::auth;
