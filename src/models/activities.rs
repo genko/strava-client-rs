@@ -1,13 +1,13 @@
-// Activities model
-// This model is used to represent the athlete object returned by the Strava API
-// Documentation: https://developers.strava.com/docs/reference/#api-Activities
-// Contains helper methods to convert units
-
+/// # Activities model
+/// This model is used to represent the athlete object returned by the Strava API
+/// Documentation: https://developers.strava.com/docs/reference/#api-Activities
+/// Contains helper methods to convert units
 use serde::{Deserialize, Serialize};
 
-// Collection used to retrieve all activities
+/// Collection used to retrieve all activities
 pub type ActivityCollection = Vec<ActivityElement>;
 
+/// Single Activity Strut
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ActivityElement {
     pub resource_state: i64,
@@ -68,25 +68,30 @@ pub struct ActivityElement {
 }
 
 impl ActivityElement {
+    /// Convert distance from km to miles
     pub fn distance_in_miles(&self, distance: f64) -> f64 {
         distance * 0.000621371
     }
 
+    /// Convert moving time from seconds to mins
     pub fn moving_time_in_mins(&self, moving_time: f64) -> f64 {
         moving_time / 60.0
     }
 
-    pub fn elasped_time_in_mins(&self, elapsed_time: f64) -> f64 {
+    /// Convert elapsed time  from seconds to mins
+    pub fn elapsed_time_in_mins(&self, elapsed_time: f64) -> f64 {
         elapsed_time / 60.0
     }
 }
 
+/// Athlete resource
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Athlete {
     pub id: i64,
     pub resource_state: i32,
 }
 
+/// Map Resource
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Map {
     pub id: String,
@@ -94,6 +99,7 @@ pub struct Map {
     pub resource_state: i64,
 }
 
+/// Types of activity and sport returned from the API
 #[derive(Serialize, Deserialize, Debug)]
 pub enum ActivityType {
     Rowing,
