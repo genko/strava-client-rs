@@ -79,27 +79,6 @@ pub fn get_athlete_clubs(
 /// # Returns
 ///
 /// * A `Result` containing the response from the API call, or an error if any occurred.
-///
-/// # Example
-///
-/// ```
-/// use std::error::Error;
-/// use std::collections::HashMap;
-/// use reqwest::Response;
-/// use log::info;
-///
-/// pub fn update_athlete_weight(
-///     access_token: &str,
-///     weight: &str
-/// ) -> Result<Response, Box<dyn Error>> {
-///     let url = strava_v3("athlete".to_string());
-///     let mut params = HashMap::new();
-///     params.insert("weight", weight);
-///
-///     info!("Calling Athlete Update Weight API\n");
-///     put_to_strava_api(url, access_token, params)
-/// }
-/// ```
 pub fn update_athlete_weight(access_token: &str, weight: &str) -> Result<Response, Box<dyn Error>> {
     let url = strava_v3("athlete".to_string());
     let mut params = HashMap::new();
