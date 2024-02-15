@@ -2,7 +2,7 @@
 //! This module is responsible for retrieving gear information from an API.
 //! It makes use of the gear id and access token to pull the info from Strava Gear API
 
-use crate::api::helpers::{fetch_from_strava_api, fetch_strava_data, strava_v3};
+use crate::api::helpers::{fetch_strava_data};
 use crate::models::gear::GearCollection;
 use log::{info, trace};
 

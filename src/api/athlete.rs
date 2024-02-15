@@ -4,11 +4,11 @@
 //! Arguments: access_token: &str
 //! Returns: JSON object from AthleteCollection
 
-use crate::api::helpers::{fetch_from_strava_api, fetch_strava_data, put_to_strava_api, strava_v3};
+use crate::api::helpers::{fetch_strava_data, put_to_strava_api, strava_v3};
 use crate::models::{athlete, clubs};
-use log::{info, trace};
+use log::{info};
 use reqwest::blocking::Response;
-use serde_json::Value::String;
+
 use std::collections::HashMap;
 use std::error::Error;
 
