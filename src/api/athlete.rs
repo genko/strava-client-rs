@@ -4,9 +4,13 @@
 //! Arguments: access_token: &str
 //! Returns: JSON object from AthleteCollection
 
-use crate::api::helpers::{fetch_from_strava_api, strava_v3};
+use crate::api::helpers::{fetch_from_strava_api, put_to_strava_api, strava_v3};
 use crate::models::{athlete, clubs};
 use log::{info, trace};
+use reqwest::blocking::Response;
+use serde_json::Value::String;
+use std::collections::HashMap;
+use std::error::Error;
 
 /// Public function to get the athlete from the Strava API
 /// Arguments: access_token: &str
@@ -63,4 +67,44 @@ pub fn get_athlete_clubs(
     let response = fetch_from_strava_api(url, access_token)?;
     let clubs: clubs::ClubCollection = response.json()?;
     Ok(clubs)
+}
+
+/// Update the weight of the logged-in athlete.
+///
+/// # Arguments
+///
+/// * `access_token` - The access token of the logged-in athlete.
+/// * `weight` - The new weight to update.
+///
+/// # Returns
+///
+/// * A `Result` containing the response from the API call, or an error if any occurred.
+///
+/// # Example
+///
+/// ```
+/// use std::error::Error;
+/// use std::collections::HashMap;
+/// use reqwest::Response;
+/// use log::info;
+///
+/// pub fn update_athlete_weight(
+///     access_token: &str,
+///     weight: &str
+/// ) -> Result<Response, Box<dyn Error>> {
+///     let url = strava_v3("athlete".to_string());
+///     let mut params = HashMap::new();
+///     params.insert("weight", weight);
+///
+///     info!("Calling Athlete Update Weight API\n");
+///     put_to_strava_api(url, access_token, params)
+/// }
+/// ```
+pub fn update_athlete_weight(access_token: &str, weight: &str) -> Result<Response, Box<dyn Error>> {
+    let url = strava_v3("athlete".to_string());
+    let mut params = HashMap::new();
+    params.insert("weight", weight);
+
+    info!("Calling Athlete Update Weight API\n");
+    put_to_strava_api(url, access_token, params)
 }
