@@ -3,6 +3,7 @@
 
 use log::warn;
 use reqwest::blocking::{RequestBuilder, Response};
+use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 
 const STRAVA_BASE_URL: &str = "https://www.strava.com/api/v3/";
@@ -88,4 +89,14 @@ pub fn put_to_strava_api(
     let request = client.put(url).bearer_auth(access_token).form(&params);
 
     send_request(request)
+}
+
+pub fn fetch_strava_data<T: DeserializeOwned>(
+    api_path: String,
+    access_token: &str,
+) -> Result<T, Box<dyn std::error::Error>> {
+    let url = strava_v3(api_path.to_string());
+    let response = fetch_from_strava_api(url, access_token)?;
+    let data: T = response.json()?;
+    Ok(data)
 }
