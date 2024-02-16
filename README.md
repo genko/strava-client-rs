@@ -55,4 +55,4 @@ fn get_access_token(config_file: String) -> Result<String, String> {
 ## Disclaimer
 This library is not affiliated with Strava. Use at your own risk. 
 This is very much a work in progress. In the current release it is read only for athlete, gear, club, and activities.
-Will be adding write access to athlete and upload in future releases.
+It will also update an athlete weight in kg.

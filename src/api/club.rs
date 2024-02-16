@@ -4,7 +4,7 @@
 //! functionality to retrieve data related to a specific club such as the club details,
 //! club members, club admins, and club activities.
 
-use crate::api::helpers::{fetch_from_strava_api, strava_v3};
+use crate::api::helpers::{fetch_strava_data};
 use crate::models::clubs;
 use log::{info, trace};
 
@@ -23,11 +23,8 @@ pub fn get_club_by_id(
     club_id: &str,
 ) -> Result<clubs::Club, Box<dyn std::error::Error>> {
     trace!("Club ID: {:?}", club_id);
-    let url = strava_v3(format!("/clubs/{}", club_id));
     info!("Calling Clubs by ID Strava API");
-    let response = fetch_from_strava_api(url, access_token)?;
-    let club: clubs::Club = response.json()?;
-    Ok(club)
+    fetch_strava_data(format!("/clubs/{}", club_id), access_token)
 }
 
 /// Get club members by club ID.
@@ -44,11 +41,8 @@ pub fn get_club_members(
     access_token: &str,
     club_id: &str,
 ) -> Result<clubs::ClubMembers, Box<dyn std::error::Error>> {
-    let url = strava_v3(format!("/clubs/{}/members", club_id));
     info!("Calling Strava Club Members API");
-    let response = fetch_from_strava_api(url, access_token)?;
-    let members: clubs::ClubMembers = response.json()?;
-    Ok(members)
+    fetch_strava_data(format!("/clubs/{}/members", club_id), access_token)
 }
 
 /// Get club admins by club ID.
@@ -65,11 +59,8 @@ pub fn get_club_admins(
     access_token: &str,
     club_id: &str,
 ) -> Result<clubs::ClubAdmins, Box<dyn std::error::Error>> {
-    let url = strava_v3(format!("/clubs/{}/admins", club_id));
     info!("Calling Strava Club Admins API");
-    let response = fetch_from_strava_api(url, access_token)?;
-    let admins: clubs::ClubAdmins = response.json()?;
-    Ok(admins)
+    fetch_strava_data(format!("/clubs/{}/admins", club_id), access_token)
 }
 
 /// Get club activities by club ID.
@@ -86,9 +77,6 @@ pub fn get_club_activities(
     access_token: &str,
     club_id: &str,
 ) -> Result<clubs::ClubActivities, Box<dyn std::error::Error>> {
-    let url = strava_v3(format!("/clubs/{}/activities", club_id));
     info!("Calling Strava Get Club Activities API");
-    let response = fetch_from_strava_api(url, access_token)?;
-    let club_activities: clubs::ClubActivities = response.json()?;
-    Ok(club_activities)
+    fetch_strava_data(format!("/clubs/{}/activities", club_id), access_token)
 }

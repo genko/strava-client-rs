@@ -12,7 +12,7 @@
 //! * Clubs
 //! * Gear
 //!
-//! Future support will include write operations and more endpoints.
+//! It supports write operations on athlete weight
 //!
 //! # Examples
 //!
