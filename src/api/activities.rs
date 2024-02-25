@@ -8,6 +8,7 @@ use crate::models::activities;
 use log::{info, trace};
 use std::collections::HashMap;
 
+/// Struct representing parameters for activities
 #[derive(Debug)]
 pub struct ActivitiesParams {
     pub access_token: String,
@@ -17,6 +18,15 @@ pub struct ActivitiesParams {
     pub page: Option<String>,
 }
 
+/// Takes an `ActivitiesParams` object and returns a `HashMap` of parameter names and their corresponding values.
+///
+/// # Arguments
+///
+/// * `params` - A reference to an `ActivitiesParams` object.
+///
+/// # Returns
+///
+/// A `HashMap<&str, String>` containing the parameter names and their corresponding values.
 fn prepare_params(params: &ActivitiesParams) -> HashMap<&str, String> {
     let mut map_params = HashMap::new();
     map_params.insert("access_token", params.access_token.clone());

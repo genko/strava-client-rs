@@ -25,7 +25,6 @@
 //!  
 //! fn main() {
 //!    //Get the access token from the config file or get a new one
-//!    use strava_client_rs::api::athlete;
 //!    let config_file = env::var("STRAVA_CONFIG_FILE").unwrap_or_else(|_| "config.json".to_string());
 //!    let access_token = get_access_token(config_file).unwrap();
 //!    let athlete = athlete::get_athlete(access_token.as_str()).unwrap();
