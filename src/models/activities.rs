@@ -130,5 +130,6 @@ pub enum ActivityType {
     Windsurf,
     Workout,
     Yoga,
+    #[serde(other)]
     Unknown,
 }
