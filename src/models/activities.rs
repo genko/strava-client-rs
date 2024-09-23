@@ -133,3 +133,14 @@ pub enum ActivityType {
     #[serde(other)]
     Unknown,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn map_unknown_activity_to_unknown() {
+        let activity = serde_json::from_str(r#""HighIntensityIntervalTraining""#);
+        assert!(matches!(activity, Ok(ActivityType::Unknown)));
+    }
+}
