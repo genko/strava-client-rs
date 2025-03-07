@@ -122,9 +122,9 @@ pub struct Totals {
     pub count: i64,
     pub distance: f64,
     // distance in meters
-    pub moving_time: i64,
+    pub moving_time: f64,
     // time in seconds
-    pub elapsed_time: i64,
+    pub elapsed_time: f64,
     pub elevation_gain: f64,
     pub achievement_count: Option<i64>,
 }

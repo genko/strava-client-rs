@@ -2,7 +2,8 @@
 [<img alt="crates.io" src="https://img.shields.io/crates/v/strava-client-rs.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/strava-client-rs)
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-strava-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/strava-client-rs)
 
-Strava API Client in Rust that uses OAuth2 to get and refresh the access token
+Strava API Client in Rust that uses OAuth2 to get and refresh the access token. Prior to using this you must create a strava application using your Strava Account
+[strava app](https://developers.strava.com/docs/getting-started/#account) 
 
 ## Example
 ```rust

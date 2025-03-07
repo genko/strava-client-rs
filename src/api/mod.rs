@@ -5,7 +5,7 @@
 pub use self::helpers::strava_v3;
 pub use self::oauth::auth;
 
-pub(crate) mod oauth;
+pub mod oauth;
 
 pub mod activities;
 pub mod athlete;

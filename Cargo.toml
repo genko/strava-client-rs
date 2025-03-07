@@ -1,8 +1,8 @@
 [package]
 name = "strava-client-rs"
-version = "0.2.3"
+version = "0.2.4"
 edition = "2021"
-author = "Quenten Griffith <qgriffith@gmail.com>"
+authors = ["Quenten Griffith <qgriffith@gmail.com>"]
 description = "Strava API Client lib"
 license = "MIT"
 keywords = ["strava", "client", "api"]
