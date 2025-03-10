@@ -69,8 +69,8 @@ pub struct ActivityElement {
 
 impl ActivityElement {
     /// Convert distance from km to miles
-    pub fn distance_in_miles(&self) -> f64 {
-        self.distance * 0.000621371
+    pub fn distance_in_miles(&self) -> i64 {
+        (self.distance * 0.000621371) as i64
     }
 
     /// Convert moving time from seconds to mins

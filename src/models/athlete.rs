@@ -126,15 +126,15 @@ pub struct Totals {
 }
 impl Totals {
     /// Returns the distance in miles converting from km of the athlete
-    pub fn distance_in_miles(&self) -> f64 {
-        self.distance * 0.000621371
+    pub fn distance_in_miles(&self) -> i64 {
+        (self.distance * 0.000621371) as i64
     }
     /// Convert moving time from seconds to mins
-    pub fn moving_time_in_mins(&self) -> f64 {
-        self.moving_time / 60.0
+    pub fn moving_time_in_mins(&self) -> i64 {
+        (self.moving_time / 60.0) as i64
     }
     /// Convert elapsed time  from seconds to mins
-    pub fn elapsed_time_in_mins(&self) -> f64 {
-        self.elapsed_time / 60.0
+    pub fn elapsed_time_in_mins(&self) -> i64 {
+        (self.elapsed_time / 60.0) as i64
     }
 }
