@@ -128,3 +128,17 @@ pub struct Totals {
     pub elevation_gain: f64,
     pub achievement_count: Option<i64>,
 }
+impl Totals {
+    /// Returns the distance in miles converting from km of the athlete
+    pub fn distance_in_miles(&self, distance: f64) -> f64 {
+        distance * 0.000621371
+    }
+    /// Convert moving time from seconds to mins
+    pub fn moving_time_in_mins(&self, moving_time: f64) -> f64 {
+        moving_time / 60.0
+    }
+    /// Convert elapsed time  from seconds to mins
+    pub fn elapsed_time_in_mins(&self, elapsed_time: f64) -> f64 {
+        elapsed_time / 60.0
+    }
+}
