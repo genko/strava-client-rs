@@ -4,6 +4,8 @@
 
 pub use self::helpers::strava_v3;
 pub use self::oauth::auth;
+pub use self::oauth::auth::get_authorization;
+pub use self::oauth::auth::get_refresh_token;
 
 pub mod oauth;
 

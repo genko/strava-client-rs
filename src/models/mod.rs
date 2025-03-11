@@ -3,6 +3,8 @@
 
 pub use self::activities::ActivityCollection;
 pub use self::athlete::AthleteCollection;
+pub use self::athlete::AthleteStats;
+pub use self::clubs::ClubCollection;
 pub use self::gear::GearCollection;
 
 pub mod athlete;
