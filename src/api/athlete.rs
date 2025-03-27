@@ -6,7 +6,7 @@
 
 use crate::api::helpers::{fetch_strava_data, put_to_strava_api, strava_v3};
 use crate::models::{athlete, clubs};
-use log::{info};
+use log::info;
 use reqwest::blocking::Response;
 
 use std::collections::HashMap;
