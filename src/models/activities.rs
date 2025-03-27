@@ -26,7 +26,7 @@ pub struct ActivityElement {
     pub utc_offset: f64,
     pub location_city: Option<serde_json::Value>,
     pub location_state: Option<serde_json::Value>,
-    pub location_country: String,
+    pub location_country: Option<String>,
     pub achievement_count: i64,
     pub kudos_count: i64,
     pub comment_count: i64,
@@ -173,5 +173,63 @@ mod tests {
     fn map_unknown_activity_to_unknown() {
         let activity = serde_json::from_str(r#""HighIntensityIntervalTraining""#);
         assert!(matches!(activity, Ok(ActivityType::Unknown)));
+    }
+
+    #[test]
+    fn location_country_can_be_null() {
+        let sample = r#"{
+            "resource_state":2,
+            "athlete":{"id":123,"resource_state":1},
+            "name":"Meditation",
+            "distance":0.0,
+            "moving_time":660,
+            "elapsed_time":660,
+            "total_elevation_gain":0,
+            "type":"Workout",
+            "sport_type":"Workout",
+            "id":13997614562,
+            "start_date":"2025-03-26T23:27:40Z",
+            "start_date_local":"2025-03-27T08:27:40Z",
+            "timezone":"(GMT+09:00) Asia/Chita",
+            "utc_offset":32400.0,
+            "location_city":null,
+            "location_state":null,
+            "location_country":null,
+            "achievement_count":0,
+            "kudos_count":0,
+            "comment_count":0,
+            "athlete_count":1,
+            "photo_count":0,
+            "map":{"id":"a13997614562", "summary_polyline":"", "resource_state":2},
+            "trainer":true,
+            "commute":false,
+            "manual":false,
+            "private":true,
+            "visibility":"only_me",
+            "flagged":false,
+            "gear_id":null,
+            "start_latlng":[],
+            "end_latlng":[],
+            "average_speed":0.0,
+            "max_speed":0.0,
+            "has_heartrate":true,
+            "average_heartrate":51.6,
+            "max_heartrate":71.0,
+            "heartrate_opt_out":false,
+            "display_hide_heartrate_option":true,
+            "elev_high":0.0,
+            "elev_low":0.0,
+            "upload_id":14941550424,
+            "upload_id_str":"14941550424",
+            "external_id":"garmin_ping_423038850865",
+            "from_accepted_tag":false,
+            "pr_count":0,
+            "total_photo_count":0,
+            "has_kudoed":false
+        }"#;
+        let activity: Result<ActivityElement, _> = serde_json::from_str(sample);
+
+        assert!(activity.is_ok());
+        assert_eq!(activity.unwrap().location_country, None);
     }
 }
