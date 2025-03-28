@@ -25,7 +25,7 @@ pub fn strava_v3(path: String) -> String {
 /// # Returns
 ///
 /// * `Result<Response, Box<dyn std::error::Error>>` - Result containing the response on success,
-/// or an error on failure.
+///    or an error on failure.
 ///
 /// # Errors
 ///

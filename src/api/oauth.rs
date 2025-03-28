@@ -19,7 +19,6 @@ use oauth2::{
 /// Calls the redirect server to get the code and state from the redirect URL.
 /// Calls the config_file module to write the access token and refresh token to the config file.
 /// Calls the reqwest module to make the request to the Strava API to get the access token and refresh token.
-
 pub mod auth {
     use super::*;
 

@@ -4,7 +4,7 @@
 //! functionality to retrieve data related to a specific club such as the club details,
 //! club members, club admins, and club activities.
 
-use crate::api::helpers::{fetch_strava_data};
+use crate::api::helpers::fetch_strava_data;
 use crate::models::clubs;
 use log::{info, trace};
 
