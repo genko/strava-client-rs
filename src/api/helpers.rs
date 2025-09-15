@@ -97,7 +97,6 @@ pub fn fetch_strava_data<T: DeserializeOwned>(
 ) -> Result<T, Box<dyn std::error::Error>> {
     let url = strava_v3(api_path.to_string());
     let response = fetch_from_strava_api(url, access_token)?;
-    println!("{:?}",response);
     let data: T = response.json()?;
     Ok(data)
 }

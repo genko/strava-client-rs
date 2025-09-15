@@ -14,7 +14,7 @@ pub struct AthleteCollection {
     pub lastname: String,
     pub city: String,
     pub state: String,
-    pub country: String,
+    pub country: Option<String>,
     pub sex: String,
     pub premium: bool,
     pub created_at: String,
