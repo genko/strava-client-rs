@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AthleteCollection {
     pub id: f64,
-    pub username: String,
+    pub username: Option<String>,
     pub resource_state: i64,
     pub firstname: String,
     pub lastname: String,
@@ -49,7 +49,7 @@ impl AthleteCollection {
         self.id
     }
     /// Returns the username of the athlete
-    pub fn get_username(&self) -> String {
+    pub fn get_username(&self) -> Option<String> {
         self.username.clone()
     }
     /// Returns the weight in kg of the athlete
